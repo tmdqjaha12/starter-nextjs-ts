@@ -22,6 +22,52 @@ const Home: NextPage = () => {
   );
 };
 
+const doRefreshToken = () => {};
+
+const exeServerQuery = async (
+  initState: any = null,
+  ctx: ResolverContext | null,
+  token: string = "",
+  query: QueryOptions<OperationVariables, any>
+) => {
+  const apolloClient: ApolloClient<NormalizedCacheObject> = initializeApollo(
+    null,
+    null,
+    ""
+  );
+  const result = await apolloClient.query(query).catch((err) => {
+    console.log("get faild Query");
+    console.log(err);
+  });
+
+  // if (result?.["data"] == "need admin") {
+  //   return result["data"];
+  // }
+  if (result?.["data"] == "jwt expired") {
+    doRefreshToken(); // return apolloClient?
+    const apolloClient: ApolloClient<NormalizedCacheObject> = initializeApollo(
+      null,
+      null,
+      ""
+    );
+    const result2 = await apolloClient.query(query).catch((err) => {
+      console.log("get faild Query2");
+      console.log(err);
+    });
+    return result2;
+  }
+
+  return result;
+};
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  // const result = exeServerQuery(null, ctx, '', query);
+
+  return {
+    props: {},
+  };
+};
+
 // export const getServerSideProps: GetServerSideProps = async (ctx) => {
 //   return {
 //     props: {},
