@@ -11,7 +11,7 @@ import { useMemo } from "react";
 
 export const LOCALSTORAGE_A_TOKEN = "token";
 
-type ResolverContext = {
+export type ResolverContext = {
   req?: IncomingMessage;
   res?: ServerResponse;
 };

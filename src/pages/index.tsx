@@ -1,4 +1,10 @@
-import { initializeApollo } from "@libs/apollo/apolloClient";
+import {
+  ApolloClient,
+  NormalizedCacheObject,
+  OperationVariables,
+  QueryOptions,
+} from "@apollo/client";
+import { initializeApollo, ResolverContext } from "@libs/apollo/apolloClient";
 import type {
   GetServerSideProps,
   GetStaticPaths,
